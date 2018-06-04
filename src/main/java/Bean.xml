@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+
+
+	<bean id="BeanInicializadorXML" name="BeanInicializadorXML" class="beans.BeanInicializador">
+	</bean>
+	<bean id="BeanEliminador" name="BeanEliminador" class="beans.BeanEliminador">
+	</bean>
+	<bean id="BeanPostProcesador" name="BeanPostProcesador" class="beans.BeanPostProcesador">
+	</bean>
+
+
+   <!-- CLASE CONTENEDORA ES LA GENERAL ESTA CONTIENE LOS BEANS INTERNOS (LOS TIENE COMO ARGUMENTOS)
+   ** EQUIPO MILLOS ES EL BASICO (AUTOWIRE=NO) ES NECESARIO ESPECIFICAR EN EL PROPERTY TODO Y POSTERIOR EL BEAN CON EL CLASS Y TODO.
+        
+    -->
+	<bean id="ClaseContenedora" name="ClaseContenedora" class="configuracion.ClaseContenedoraAutowireNo">
+
+		<property name="equipoMillos">
+			<bean id="EquipoPruebaXML" name="EquipoMillos"
+				class="implementaciones.EquipoMillosXML">
+				<property name="listaXML">
+					<list value-type="java.lang.String">
+						<value>millos</value>
+						<value>santafe</value>
+						<value>america</value>
+					</list>
+				</property>
+			</bean>
+		</property>
+		<property name="bandaMusica">
+			<bean id="BandaMetallica" class="implementaciones.BandaMetallicaXML"
+				name="BandaMetallica">
+			</bean>
+		</property>
+	</bean>
+	
+	<!--  ESTE CASO ES BYNAME ES NECESARIO QUE EL NAME DEL BEAN SEA EL MISMO QUE EL ATRIBUTO QUE TENGA LA CLASE CONTENEDORA -->
+	<bean id="ClaseContenedoraByName" name="ClaseContenedoraByName"
+		class="configuracion.ClaseContenedoraAutowireByName" autowire="constructor">
+	</bean>
+	<bean id="BandaMusica" name="bandaMusicaa"
+		class="implementaciones.BandaMetallicaXML">
+	</bean>
+</beans>
